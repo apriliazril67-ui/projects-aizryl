@@ -1,0 +1,285 @@
+/* ==========================================================================
+   AzryAI — Design Tokens
+   Palette   : #05040f (void), #0b0a1f (deep space), #39f6ff (ion cyan),
+               #8b5cf6 (nebula violet), #ff5fd1 (quasar pink accent),
+               #f4f7ff (starlight text)
+   Display   : "Sora"           — headlines, brand
+   Body      : "Space Grotesk"  — UI copy
+   Mono/Data : "JetBrains Mono" — code, data, timestamps
+   Signature : the RobotMascot — a floating hologram companion whose eyes
+               and aura react to conversation state (idle / thinking / reply)
+   ========================================================================== */
+
+:root {
+  --void: #05040f;
+  --deep-space: #0b0a1f;
+  --panel: rgba(18, 17, 43, 0.55);
+  --panel-solid: #12112b;
+  --border-soft: rgba(148, 163, 255, 0.16);
+
+  --cyan: #39f6ff;
+  --violet: #8b5cf6;
+  --pink: #ff5fd1;
+  --indigo: #4f6bff;
+
+  --text-hi: #f4f7ff;
+  --text-mid: #b9c0e8;
+  --text-low: #767ea8;
+
+  --gradient-brand: linear-gradient(135deg, var(--cyan) 0%, var(--indigo) 45%, var(--violet) 100%);
+  --gradient-aura: radial-gradient(circle, rgba(57, 246, 255, 0.35), rgba(139, 92, 246, 0.12) 55%, transparent 75%);
+
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --radius-sm: 9px;
+
+  --shadow-glow: 0 0 40px rgba(57, 246, 255, 0.12), 0 0 100px rgba(139, 92, 246, 0.08);
+
+  --font-display: "Sora", system-ui, sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --nav-h: 68px;
+  --sidebar-w: 264px;
+
+  color-scheme: dark;
+}
+
+html.light {
+  --void: #f4f6ff;
+  --deep-space: #ffffff;
+  --panel: rgba(255, 255, 255, 0.65);
+  --panel-solid: #ffffff;
+  --border-soft: rgba(79, 70, 229, 0.14);
+  --text-hi: #100e2b;
+  --text-mid: #3d4270;
+  --text-low: #767ea8;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--void);
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100dvh;
+  position: relative;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(57, 246, 255, 0.28);
+}
+
+/* Respect reduced motion everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.reduce-motion * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Focus visibility */
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---------- Layout shell ---------- */
+.app-shell {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+}
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  padding-bottom: calc(var(--nav-h) + 18px);
+}
+
+@media (min-width: 960px) {
+  .app-main {
+    padding-bottom: 32px;
+    margin-left: var(--sidebar-w);
+  }
+}
+
+.page-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 18px 12px;
+}
+
+@media (min-width: 640px) {
+  .page-container { padding: 28px 32px 16px; }
+}
+
+/* ---------- Glassmorphism primitives ---------- */
+.glass {
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: var(--shadow-glow);
+}
+
+.glass-panel {
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14.5px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  color: #04121a;
+  background: var(--gradient-brand);
+  box-shadow: 0 6px 24px rgba(57, 246, 255, 0.28), 0 2px 10px rgba(139, 92, 246, 0.25);
+}
+
+.btn-primary:hover { box-shadow: 0 8px 32px rgba(57, 246, 255, 0.42), 0 4px 16px rgba(139, 92, 246, 0.35); }
+
+.btn-ghost {
+  color: var(--text-hi);
+  background: rgba(148, 163, 255, 0.08);
+  border-color: var(--border-soft);
+}
+
+.btn-ghost:hover {
+  border-color: rgba(57, 246, 255, 0.45);
+  background: rgba(57, 246, 255, 0.08);
+}
+
+.btn-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-mid);
+  background: rgba(148, 163, 255, 0.08);
+  border: 1px solid var(--border-soft);
+  transition: all 0.18s ease;
+}
+
+.btn-icon:hover {
+  color: var(--cyan);
+  border-color: rgba(57, 246, 255, 0.5);
+  box-shadow: 0 0 18px rgba(57, 246, 255, 0.25);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 255, 0.25);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(57, 246, 255, 0.45); }
+
+/* ---------- Misc utility ---------- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+.text-muted { color: var(--text-mid); }
+.text-low { color: var(--text-low); }
+
+.fade-in {
+  animation: fadeIn 0.5s ease both;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
